@@ -5,7 +5,7 @@ contract Marketplace {
     uint public productCount = 0;
     mapping(uint => Product) public products;
     address payable seller;
-    address payable buyer;
+    address payable public buyer;
     address public marketplaceContractAddress=address(this);
 
     modifier onlyBuyer {
@@ -46,7 +46,7 @@ contract Marketplace {
         seller = msg.sender;
     }
 
-    function createProduct(string memory _name, uint _price) public onlySeller {
+    function createProduct(string memory _name, uint _price) public  {
         confirmCreate();
         // Require a valid name
         require(bytes(_name).length > 0,'');
@@ -64,7 +64,7 @@ contract Marketplace {
         buyer = msg.sender;
     }
 
-    function purchaseProduct(uint _id) public payable onlyBuyer {
+    function purchaseProduct(uint _id) public payable {
         confirmPurchase();
             // Fetch the product
         Product memory _product = products[_id];

@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import firebase from "firebase"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import Button from 'react-bootstrap/Button';
+import App, {getAccounts} from '../App.js'
 
 firebase.initializeApp({
     apiKey: 'AIzaSyAC8BHfAAFHKEofGKev8kIAx4JW639h_zk',
@@ -14,20 +15,22 @@ class login extends Component {
         SignInFlow : "popup",
         SignInOptions :[
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            // firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ],
         callbacks: {
             SignInSuccess: () => false
         }
     }
 
-    componentDidMount = () => {
+     componentDidMount = async () => {
 
         firebase.auth().onAuthStateChanged(user => {
             this.setState({isSignIn: !!user})
             console.log('user', user)
         })
+
+        await getAccounts()
 
     }
 
@@ -41,8 +44,7 @@ class login extends Component {
                     <span>
                         {/* <div>SignIn !</div> */}
                         <Button onClick = {()=> firebase.auth().signOut()}>Sign Out</Button>
-                        {/* <h1>{firebase.auth().currentUser.displayName}</h1>
-                        <img alt = 'profile picture' src={firebase.auth().currentUser.photoURL}></img> */}
+                        <App/>
                     </span>
                 ):
                 (

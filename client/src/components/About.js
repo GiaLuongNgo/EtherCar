@@ -1,7 +1,9 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
 const About = () => (
-    <div>
-        <h3>Home</h3>
-    </div>
+    <Typography align="center" color="textSecondary" paragraph>
+              Author: Gia Luong Ngo/George Brown College
+    </Typography>
 );
 export default About;

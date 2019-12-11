@@ -6,13 +6,12 @@ import Home from './components/Home';
 import AddProduct from './components/AddProduct';
 import Rewards from './components/Rewards';
 import About from './components/About';
-import {Navbar, Nav,Form, Button } from 'react-bootstrap';
-import web3 from './web3';
+import {Navbar, Nav } from 'react-bootstrap';
+import loadingImg from "./comet-spinner.gif";
 import marketPlace from './marketplace';
-import carReward from './carReward';
 import Web3 from 'web3'
-// import getWeb3 from './getWeb3'
-import logo from './logo.png'
+import getWeb3 from './getWeb3'
+import logo from './l.png'
 import Typography from '@material-ui/core/Typography';
 
 class App extends Component {
@@ -38,16 +37,12 @@ class App extends Component {
 
     this.createProduct = this.createProduct.bind(this)
     this.purchaseProduct = this.purchaseProduct.bind(this)
-    this.addMinter = this.addMinter.bind(this)
-    this.trigger = this.trigger.bind(this)
     this.withdraw = this.withdraw.bind(this)
-    this.checkBuyer = this.checkBuyer.bind(this)
-
   }
 
-  async createProduct(name, price) {
+  async createProduct(name, price, speed, level) {
     this.setState({ loading: true })
-    await marketPlace.methods.createProduct(name, price).send({ from: this.state.account })
+    await marketPlace.methods.createProduct(name, price, speed, level).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
     })
@@ -59,36 +54,20 @@ class App extends Component {
     // this.state.buyers.push(this.state.account)
   }
 
-  async addMinter() {
-    await carReward.methods.addMinters(this.state.account).send({from: this.state.account})
-    this.setState({noti: 'you are added to blockchain'})
-  }
-
-  async trigger() {
-    await carReward.methods.trigger().send({from: this.state.account})
-    this.setState({noti: 'you are triggered'})
-  }
-
   async withdraw(){
-    await carReward.methods.withdraw().send({from: this.state.account})
-    this.setState({noti: 'you are withdrawed'})
-    this.setState({
-      buyers: [...this.state.buyer, this.state.account]
-    })
+    await marketPlace.methods.withdraw().send({from: this.state.account})
+    this.setState({noti: 'you just withdrawed reward' })
   }
 
   async checkBuyer(){
-    let buyer =  await marketPlace.methods.buyer().call()
-  
-      if(buyer === this.state.account){
-        this.setState({check : true})
-      }
-    
+    let check =  await marketPlace.methods.isMinter(this.state.account).call()  
+        this.setState({check : check})
   }
 
 
   async getAccounts() {
-    // let web3 = await getWeb3();
+    let web3 = await getWeb3();
+    this.setState({web3 : web3})
     let accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
     let balance = await web3.eth.getBalance(accounts[0]);
@@ -96,23 +75,18 @@ class App extends Component {
     this.setState({balance : balanceWei})
     console.log(balanceWei)
     this.setState({ balanceWei : balanceWei})
-    // let marketplace = marketPlace;
-
-    // this.setState({ marketplace })
     const productCount = await marketPlace.methods.productCount().call()
     console.log(productCount);
     
     this.setState({ productCount })
-    // this.setState({buyers})
       // Load products
       for (var i = 0; i < productCount; i++) {
         const product = await marketPlace.methods.products(i).call()
-        // const buyer = await marketplace.methods.buyers(i).call()
         this.setState({
           products: [...this.state.products, product]
         })
       }
-    let value = await carReward.methods.balanceOf(this.state.account).call()
+    let value = await marketPlace.methods.balanceOf(this.state.account).call()
     let reward = await Web3.utils.fromWei(value, "ether");
     this.setState({reward: reward})
     console.log(value)
@@ -126,14 +100,23 @@ class App extends Component {
   }
 
   render() {
+    if (!this.state.web3) {
+      return (
+        <div>
+          <div align = 'center'>
+            <img src={ loadingImg } alt="Loading Web3, accounts, and contract..." />
+            <p>You need to connect to MetaMask</p>
+          </div>
+        </div>
+      );
+    }
     return (
-      
       <React.Fragment>
       {/* <Login/> */}
        <Router>
            <div>
             <Navbar bg="info" variant="info" position="relative">
-              <Navbar.Brand><Link to="/"><img className ='navbar-toggler-icon' src ={logo} alt ='logo' ></img> </Link></Navbar.Brand>
+              <Navbar.Brand><Link to="/"><img className ='navbar-icon' src ={logo} alt ='logo' ></img>  </Link></Navbar.Brand>
               <Nav className="mr-auto">
                 <Nav.Link><Link to="/"><Typography variant="h6" color="inherit" noWrap>
             Home
@@ -167,12 +150,9 @@ class App extends Component {
                   createProduct={this.createProduct}
                   />}/>
             <Route path="/rewards" component={() => <Rewards
-            addMinter = {this.addMinter}
-            trigger = {this.trigger}
             withdraw = {this.withdraw}
             noti = {this.state.noti}
             check ={this.state.check}
-            checkBuyer= {this.checkBuyer}
             />}/>
             <Route path="/about" component={About}/>
             </div>

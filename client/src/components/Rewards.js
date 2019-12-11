@@ -7,25 +7,7 @@ class Rewards extends Component {
             <div>
               {!this.props.check?
             <div> You need to buy product to receive reward </div>
-            :<div style= {{textAlign : 'center'}}>
-                <button
-                          class="btn btn-primary"
-                          onClick={() => {
-                            this.props.addMinter()
-                          }}
-                        >
-                          add Minter
-                </button>
-                ===>
-                <button
-                          class="btn btn-primary"
-                          onClick={() => {
-                            this.props.trigger()
-                          }}
-                        >
-                          Trigger
-                </button>
-                ===>
+            :<div align = 'center'>
                 <button
                           class="btn btn-primary"
                           onClick={() => {

@@ -60,7 +60,7 @@ contract ERC1973 is ERC20Mintable, ERC20Detailed {
      * @dev Function to introduce new tokens in the network.
      * @return A boolean that indicates if the operation was successful.
      */
-    function trigger() external isAuthorized returns (bool) {
+    function trigger() public isAuthorized returns (bool) {
     bool res = readyToMint();
     if(res == false) {
     return false;

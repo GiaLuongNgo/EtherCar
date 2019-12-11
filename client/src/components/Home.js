@@ -27,28 +27,32 @@ class Home extends Component {
                   
                   {this.props.products.map((product, key) => {
                     return(
-                      <div key = {key} class="card" style= {{ width: '18rem', height : '25rem' }}>
+                      <div key = {key} class="card" style= {{ width: '18rem', height : '28rem' }}>
                   <img src={svg} class="card-img-top" alt="..."/>
                   <div class="card-body">
-                  <h5 class="card-title">{product.name}</h5>
-                  <p class="card-text">{product.price } Eth</p>
-                    <p class="card-text"> Owner:{product.owner}</p>
+                  <div class="row">
+                  <h5 class=" col-sm-8 card-title">{product.name}</h5>
+                  <p class="col card-text" align = 'center'>{product.price } ETH</p>
+                  </div>
+                  
+                  <p class="card-text"> Owner:{product.owner}</p>
+                  <p class="card-text">Level: {product.level }</p>
+                  <p class="card-text">Speed: {product.speed } Km/h</p>
                     <div>
                     { !product.purchased
                       ?<div> 
                       <button
-                          class="btn btn-primary"
+                          class="btn btn-info"
                           name={product.id}
                           value={product.price * 1000000000000000000}
                           onClick={(event) => {
                             this.props.purchaseProduct(event.target.name, event.target.value)
-                            // this.setState({ show: true })
                           }}
                         >
-                          Buy
+                          Buy Now
                         </button>
                       </div>
-                      : <h6>out of stock</h6>
+                      : <h6>Out of stock</h6>
                     }
                     </div>
                   </div>

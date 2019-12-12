@@ -1,4 +1,3 @@
-# EtherCar
 
 # Project Name:  CAR MARKETPLACE GAME WITH REWARDS
 
@@ -28,7 +27,9 @@ When a seller buy a car, they can join nodes of ERC 1973 and be a minter, afrer 
 
 # Instruction
 
-The game is now hosting at https://ethercar-61075.firebaseapp.com. There are 3 main functions is posting car, buying car and redeem reward
+The game is now hosting at https://ethercar-61075.firebaseapp.com.
+You need to connect to Metamask Ropsten testnet to play the game.
+There are 3 main functions is posting car, buying car and redeem reward.
 You must buy car to become one of minters to redeem the SIM token reward.
 
 

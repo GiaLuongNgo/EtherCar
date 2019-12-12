@@ -1,4 +1,5 @@
 pragma solidity ^0.5.8;
+import './ERC1973.sol';
 
 contract Marketplace is ERC1973 {
 
@@ -15,6 +16,12 @@ contract Marketplace is ERC1973 {
         participantMask[participant] = previousRoundMask;
         return true;
     }
+
+    function buyerWithdraw(address  _minter) public {
+        withdraw();
+        removeMinters(_minter);
+    }
+
     uint public productCount = 0;
     mapping(uint => Product) public products;
     address payable seller;

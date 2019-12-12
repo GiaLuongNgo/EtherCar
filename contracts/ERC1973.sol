@@ -49,7 +49,7 @@ contract ERC1973 is ERC20Mintable, ERC20Detailed {
      * @param _minter The address that will be unable to mint tokens.
      * @return A boolean that indicates if the operation was successful.
      */
-    function removeMinters(address _minter) external returns (bool) {
+    function removeMinters(address _minter) public returns (bool) {
         totalParticipants = totalParticipants.sub(1);
         _removeMinter(_minter);
         return true;
@@ -74,7 +74,7 @@ contract ERC1973 is ERC20Mintable, ERC20Detailed {
      * @dev Function to withdraw rewarded tokens by a participant.
      * @return A boolean that indicates if the operation was successful.
      */
-    function withdraw() external isAuthorized returns (bool) {
+    function withdraw() public isAuthorized returns (bool) {
     uint256 amount = calculateRewards();
     require(amount > 0, '');
     ERC20(tokencontractAddress).transfer(msg.sender, amount);

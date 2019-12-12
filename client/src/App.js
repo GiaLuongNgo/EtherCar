@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   async withdraw(){
-    await marketPlace.methods.withdraw().send({from: this.state.account})
+    await marketPlace.methods.buyerWithdraw(this.state.account).send({from: this.state.account})
     this.setState({noti: 'you just withdrawed reward' })
   }
 

@@ -56,6 +56,21 @@ let abi =[
     "constant": false,
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_minter",
+        "type": "address"
+      }
+    ],
+    "name": "buyerWithdraw",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "internalType": "string",
         "name": "_name",
         "type": "string"
@@ -78,32 +93,6 @@ let abi =[
     ],
     "name": "createProduct",
     "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "subtractedValue",
-        "type": "uint256"
-      }
-    ],
-    "name": "decreaseAllowance",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -180,6 +169,32 @@ let abi =[
       }
     ],
     "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "subtractedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "decreaseAllowance",
     "outputs": [
       {
         "internalType": "bool",
@@ -850,6 +865,6 @@ let abi =[
   }
 ]
 
-  let address = '0x6F7af197891eB01612052464dCb17a5b7b2ed49A'
+  let address = '0xbE8b4BC1bD5AddBf6B7662A33E661B2D68E1f4A1'
 
   export default new web3.eth.Contract(abi, address);

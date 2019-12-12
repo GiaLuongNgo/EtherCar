@@ -25,7 +25,7 @@ Low fee transaction validation. Payments are instant and don’t require any int
 
 When a seller buy a car, they can join nodes of ERC 1973 and be a minter, afrer that can redeem the SIM token as their reward. This reward will help players enjoy playing games, increasing the number of players participating in this game. Who come sooner get better rewards.
 
-# Instruction
+# Instructions
 
 The game is now hosting at https://ethercar-61075.firebaseapp.com.
 You need to connect to Metamask Ropsten testnet to play the game.
@@ -36,7 +36,8 @@ You must buy car to become one of minters to redeem the SIM token reward.
 # Related Links
 
 * Github repo for the project https://github.com/GiaLuongNgo/EtherCar
-* Wesbite link https://ethercar-61075.firebaseapp.com
+* Webapp link https://ethercar-61075.firebaseapp.com
+* Contract link https://ropsten.etherscan.io/address/0xbe8b4bc1bd5addbf6b7662a33e661b2d68e1f4a1
 
 # Additional Notes 
 
